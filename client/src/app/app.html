@@ -1,0 +1,21 @@
+<main>
+    <div class="tasks">
+        <div>
+            <h1>Tasks</h1>
+            @for (task of tasks$ | async; track $index) {
+            <div class="task">
+                <h2>{{ task.title }}</h2>
+                <p>{{ task.status }}</p>
+            </div>
+            }
+        </div>
+        <div>
+            <form>
+                <input type="text" placeholder="Add a new task..." />
+                <button>Add</button>
+            </form>
+        </div>
+    </div>
+
+    <router-outlet />
+</main>
