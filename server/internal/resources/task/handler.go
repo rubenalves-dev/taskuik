@@ -37,6 +37,7 @@ func (h *Handler) createTask(c *gin.Context) {
 		common.ErrJson(c, http.StatusBadRequest, err)
 		return
 	}
+	fmt.Printf("Creating task: %+v\n", task)
 	result := h.service.CreateTask(&task)
 	if result.Err != nil {
 		common.ErrJson(c, result.StatusCode, result.Err)

@@ -19,7 +19,19 @@ export class TasksService {
     addTask(title: string) {
         return this.http.post<Task>(
             `${this.apiUrl}/tasks`,
-            { title, status: 0 },
+            { Title: title, Status: 0 },
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                }),
+            }
+        );
+    }
+
+    updateTaskStatus(task: Task, status: number) {
+        return this.http.put<Task>(
+            `${this.apiUrl}/tasks/${task.ID}`,
+            { Title: task.Title, Status: status },
             {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
@@ -30,7 +42,7 @@ export class TasksService {
 }
 
 export interface Task {
-    Id: number;
+    ID: number;
     Title: string;
     Status: number;
 }

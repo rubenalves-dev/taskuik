@@ -2,15 +2,15 @@
     <div class="tasks">
         <div>
             <h1>Tasks</h1>
-            @for (task of tasks$ | async; track task.Id) {
+            @for (task of tasks$ | async; track task.ID) {
             <div class="task">
-                <p>{{ task.Title }} | {{ task.Status }}</p>
+                <button (click)="changeStatus(task)">{{ task.Title }} | {{ task.Status }}</button>
             </div>
             }
         </div>
         <div>
-            <form (submit)="onSubmit(); $event.preventDefault()">
-                <input [formControl]="taskForm" type="text" placeholder="Add a new task..." />
+            <form (submit)="onSubmit(); $event.preventDefault()" [formGroup]="taskForm">
+                <input formControlName="title" type="text" placeholder="Add a new task..." />
                 <button>Add</button>
             </form>
         </div>

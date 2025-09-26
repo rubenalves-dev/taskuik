@@ -19,13 +19,23 @@ export class App implements OnInit {
 
     protected tasks$!: Observable<Task[]>;
 
-    protected taskForm = new FormControl('');
+    protected taskForm = new FormGroup({
+        title: new FormControl(),
+    });
 
     ngOnInit(): void {
         this.refreshTasks();
 
         this.tasks$.subscribe((tasks) => {
             console.log('Tasks updated:', tasks);
+        });
+    }
+
+    public changeStatus(task: Task) {
+        const newStatus = (task.Status + 1) % 3; // Cycle through statuses 0, 1, 2
+        console.log(`Changing status of task ${task.ID} to ${newStatus}`);
+        this.tasksService.updateTaskStatus(task, newStatus).subscribe(() => {
+            this.refreshTasks();
         });
     }
 
